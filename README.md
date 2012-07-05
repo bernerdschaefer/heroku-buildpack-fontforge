@@ -4,8 +4,8 @@ This is a Heroku buildpack for fontforge.
 
 ## Usage
 
-  heroku create --stack cedar --buildpack https://github.com/bernerdschaefer/heroku-buildpack-fontforge.git
-  git push heroku master
+    heroku create --stack cedar --buildpack https://github.com/bernerdschaefer/heroku-buildpack-fontforge.git
+    git push heroku master
 
 ## Notes about the Fontforge Build
 
