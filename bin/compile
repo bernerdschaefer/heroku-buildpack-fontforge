@@ -1,0 +1,25 @@
+#!/bin/sh
+# bin/compile <build-dir> <cache-dir>
+
+set -e
+
+BUILD_DIR=$1
+CACHE_DIR=$2
+
+# config
+VERSION="20110222"
+S3_BUCKET="heroku-buildpack-fontforge"
+
+# s3 packages
+FILE_NAME="fontforge-${VERSION}.tgz"
+BUILDPACK_FONTFORGE_PACKAGE="http://${S3_BUCKET}.s3.amazonaws.com/${FILE_NAME}"
+
+mkdir -p $CACHE_DIR
+if ! [ -e $CACHE_DIR/$FILE_NAME ]; then
+  echo "-----> Fetching fontforge buildpack binaries"
+  curl $BUILDPACK_FONTFORGE_PACKAGE -s -o $CACHE_DIR/$FILE_NAME
+fi
+
+echo "-----> Extracting fontforge binaries"
+mkdir -p $BUILD_DIR/vendor/fontforge
+tar zxf $CACHE_DIR/$FILE_NAME -C $BUILD_DIR/vendor/fontforge
